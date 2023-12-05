@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\EntradaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/entradas', [EntradaController::class, 'index']);
+Route::get('/entrada/{id}', [EntradaController::class, 'show']);
+Route::post('/entrada', [EntradaController::class, 'store']);
+Route::put('/entrada/{id}', [EntradaController::class, 'update']);
+Route::delete('/entrada/{id}', [EntradaController::class, 'destroy']);
