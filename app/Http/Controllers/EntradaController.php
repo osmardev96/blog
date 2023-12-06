@@ -4,17 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Entrada;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class EntradaController extends Controller
 {
-    public function index()
+    public function entradas()
     {
         $entradas = Entrada::all();
-
         return response()->json($entradas);
     }
 
-    public function show($id)
+    public function busqueda($b)
+    {
+        $entradas = DB::table('entrada')->where('titulo','LIKE','%'.$b.'%')
+        ->orWhere('autor','LIKE','%'.$b.'%')
+        ->orWhere('fecha_publicacion','LIKE','%'.$b.'%')
+        ->orWhere('contenido','LIKE','%'.$b.'%')
+        ->get();
+        return response()->json($entradas);
+    }
+
+    public function entradaId($id)
     {
         $entrada = Entrada::find($id);
 
@@ -23,8 +34,21 @@ class EntradaController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function guardar(Request $request)
     {
+        $validador = Validator::make($request->all(), [
+            'titulo' => 'required',
+            'autor' => 'required',
+            'fecha_publicacion' => 'required',
+            'contenido' => 'required',
+        ]);
+        if ($validador->fails()) {
+            return response()->json([
+                'codigo' => 0,
+                'resultado' => 'campos requeridos',
+            ]);
+        }
+
         $entrada = new Entrada;
         $entrada->titulo = $request->input('titulo');
         $entrada->autor = $request->input('autor');
@@ -38,7 +62,7 @@ class EntradaController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function actualizar(Request $request, $id)
     {
         $entrada = Entrada::find($id);
 
@@ -54,7 +78,7 @@ class EntradaController extends Controller
         ]);
     }
 
-    public function destroy($id)
+    public function eliminar($id)
     {
         $entrada = Entrada::find($id);
 

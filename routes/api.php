@@ -18,8 +18,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/entradas', [EntradaController::class, 'index']);
-Route::get('/entrada/{id}', [EntradaController::class, 'show']);
-Route::post('/entrada', [EntradaController::class, 'store']);
-Route::put('/entrada/{id}', [EntradaController::class, 'update']);
-Route::delete('/entrada/{id}', [EntradaController::class, 'destroy']);
+Route::get('/entradas', [EntradaController::class, 'entradas']);
+Route::get('/entradas/{b}', [EntradaController::class, 'busqueda']);
+Route::get('/entrada/{id}', [EntradaController::class, 'entradaId']);
+Route::post('/guardar', [EntradaController::class, 'guardar']);
+Route::put('/actualizar/{id}', [EntradaController::class, 'actualizar']);
+Route::delete('/eliminar/{id}', [EntradaController::class, 'eliminar']);

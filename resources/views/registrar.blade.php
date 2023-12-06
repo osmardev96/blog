@@ -27,30 +27,32 @@
 
 <body class="">
     <div class="container-fluid">
-        <form id="formulario">
-            @csrf
-            <div class="form-group">
-                <label for="titulo">titulo</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" aria-describedby="titulo"
-                    placeholder="titulo">
-            </div>
-            <div class="form-group">
-                <label for="autor">autor</label>
-                <input type="text" class="form-control" id="autor" name="autor" aria-describedby="autor"
-                    placeholder="autor">
-            </div>
-            <div class="form-group">
-                <label for="fecha_publicacion">fecha_publicacion</label>
-                <input type="date" class="form-control" id="fecha_publicacion" name="fecha_publicacion"
-                    aria-describedby="fecha_publicacion" placeholder="fecha_publicacion">
-            </div>
-            <div class="form-group">
-                <label for="contenido">contenido</label>
-                <textarea type="text" class="form-control" id="contenido" name="contenido" aria-describedby="contenido"
-                    placeholder="contenido"></textarea>
-            </div>
-            <button type="button" id="guardar" class="btn btn-primary">Guardar</button>
-        </form>
+        <div class="container mt-4">
+            <form id="formulario">
+                @csrf
+                <div class="form-group">
+                    <label for="titulo">titulo</label>
+                    <input type="text" class="form-control" id="titulo" name="titulo" aria-describedby="titulo"
+                        placeholder="titulo">
+                </div>
+                <div class="form-group">
+                    <label for="autor">autor</label>
+                    <input type="text" class="form-control" id="autor" name="autor" aria-describedby="autor"
+                        placeholder="autor">
+                </div>
+                <div class="form-group">
+                    <label for="fecha_publicacion">fecha_publicacion</label>
+                    <input type="date" class="form-control" id="fecha_publicacion" name="fecha_publicacion"
+                        aria-describedby="fecha_publicacion" placeholder="fecha_publicacion">
+                </div>
+                <div class="form-group">
+                    <label for="contenido">contenido</label>
+                    <textarea type="text" class="form-control" id="contenido" name="contenido" aria-describedby="contenido"
+                        placeholder="contenido"></textarea>
+                </div>
+                <button type="button" id="guardar" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
     </div>
 </body>
 <script>
@@ -111,7 +113,7 @@
             }
             let datos = $('#formulario').serialize();
             $.ajax({
-                url: "/api/entrada",
+                url: "/api/guardar",
                 method: 'post',
                 dataType: 'json',
                 data: datos,
@@ -133,7 +135,7 @@
                         Swal.fire({
                             icon: 'warning',
                             title: 'Aviso',
-                            text: 'Credenciales invalidas',
+                            text: 'Campos requeridos',
                         });
                     }
                 },
