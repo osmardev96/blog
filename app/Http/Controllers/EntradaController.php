@@ -11,9 +11,7 @@ class EntradaController extends Controller
     {
         $entradas = Entrada::all();
 
-        return response()->json([
-            'entradas' => $entradas
-        ]);
+        return response()->json($entradas);
     }
 
     public function show($id)
@@ -28,17 +26,15 @@ class EntradaController extends Controller
     public function store(Request $request)
     {
         $entrada = new Entrada;
-
         $entrada->titulo = $request->input('titulo');
         $entrada->autor = $request->input('autor');
         $entrada->fecha_publicacion = $request->input('fecha_publicacion');
         $entrada->contenido = $request->input('contenido');
-
         $entrada->save();
 
         return response()->json([
-            'message' => 'Entrada creada',
-            'entrada' => $entrada
+            'codigo' => 1,
+            'resultado' => 'exito',
         ]);
     }
 
