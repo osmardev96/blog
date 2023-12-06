@@ -66,15 +66,29 @@ class EntradaController extends Controller
     {
         $entrada = Entrada::find($id);
 
-        $entrada->name = $request->input('name');
-        $entrada->description = $request->input('description');
-        $entrada->completed = $request->input('completed');
+        $validador = Validator::make($request->all(), [
+            'titulo' => 'required',
+            'autor' => 'required',
+            'fecha_publicacion' => 'required',
+            'contenido' => 'required',
+        ]);
+        if ($validador->fails()) {
+            return response()->json([
+                'codigo' => 0,
+                'resultado' => 'campos requeridos',
+            ]);
+        }
 
+        $entrada = new Entrada;
+        $entrada->titulo = $request->input('titulo');
+        $entrada->autor = $request->input('autor');
+        $entrada->fecha_publicacion = $request->input('fecha_publicacion');
+        $entrada->contenido = $request->input('contenido');
         $entrada->save();
 
         return response()->json([
-            'message' => 'Entrada updated successfully',
-            'entrada' => $entrada
+            'codigo' => 1,
+            'resultado' => 'exito',
         ]);
     }
 
@@ -85,7 +99,7 @@ class EntradaController extends Controller
         $entrada->delete();
 
         return response()->json([
-            'message' => 'Entrada deleted successfully'
+            'mensaje' => 'Entrada deleted successfully'
         ]);
     }
 }
