@@ -19,7 +19,6 @@ class EntradaController extends Controller
     {
         $entradas = DB::table('entrada')->where('titulo','LIKE','%'.$b.'%')
         ->orWhere('autor','LIKE','%'.$b.'%')
-        ->orWhere('fecha_publicacion','LIKE','%'.$b.'%')
         ->orWhere('contenido','LIKE','%'.$b.'%')
         ->get();
         return response()->json($entradas);
